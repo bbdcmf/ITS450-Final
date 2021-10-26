@@ -1,0 +1,36 @@
+.loginBody {
+	margin:0px;
+	background:skyblue;
+}
+
+.loginDiv {
+	position:absolute;
+	left:50%;
+	top:50%;
+	-webkit-transform:translate(-50%,-50%);
+	transform:translate(-50%,-50%);
+	border:3px solid blue;
+	padding-left:40px;
+	padding-right:40px;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+.loginBtn {
+	width:80px;
+	margin-top:10px;
+}
+
+.loggedInBody {
+	margin:0px;
+	background:skyblue;
+}
+
+.loggedInDiv {
+	position: absolute;
+	left:50%;
+	top:50%;
+	-webkit-transform:translate(-50%,-50%);
+	transform:translate(-50%,-50%);
+	text-align:center;
+}

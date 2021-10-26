@@ -19,6 +19,8 @@
 .loginBtn {
 	width:80px;
 	margin-top:10px;
+	color: white;
+	background: blue;
 }
 
 .loggedInBody {

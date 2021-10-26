@@ -1,14 +1,14 @@
-//TODO: Make the errors from $errorstr look better when displayed
 <?php
+// TODO: Make the errors from $errorstr look better when displayed
 session_start();
 ob_start();
-require('mysql.inc.php'); //require the MYSQL info
+require('mysql.inc.php'); // require the MYSQL info
 if(!isset($_POST['btnRegister'])){ //If the register button has not been pressed
 	require('html/register.html');
 }
 else{
-	$good = FALSE; //need this for ensuring there are no errors
-	$errorstr = '';//need this as well for reason above
+	$good = FALSE; // need this for ensuring there are no errors
+	$errorstr = '';// need this as well for reason above
 	$nameValues = $_POST;
 	foreach($nameValues as $name => $value) {
 		if($name != 'btnSubmit'){
@@ -32,10 +32,10 @@ else{
 			}
 		}
 	}
-	if($password != $conpass) { //if the two passwords dont match
+	if($password != $conpass) { // if the two passwords dont match
 		$errorstr = $errorstr . ' mismatch password, ';
 	}
-	//ensuring the username hasnt been taken already
+	// ensuring the username hasnt been taken already
 	$stmt = $db->prepare("SELECT * FROM users WHERE username=?");
 	$stmt->bind_param("s", $username);
 	$stmt->execute();
@@ -46,16 +46,16 @@ else{
 	}
 	// hash password
 	$hashedPass = hash_pass($password);
-	//if there are no errors, insert the users info into the DB
+	// if there are no errors, insert the users info into the DB
 	if($errorstr == '') {
 		$good = TRUE;
 		$stmt = $db->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
 		$stmt->bind_param("ss", $username, $hashedPass);
 		$stmt->execute();
 	}
-	//get the user info from the DB and set the user's session
+	// get the user info from the DB and set the user's session
 	if($good) {
-		//get the id of the user that we just inserted
+		// get the id of the user that we just inserted
 		$stmt = $db->prepare("SELECT * FROM users WHERE username=?");
 		$stmt->bind_param("s", $username);
 		$stmt->execute();
@@ -71,7 +71,7 @@ else{
 		exit();
 			
 	}
-	//if there are errors, show them
+	// if there are errors, show them
 	else {
 		require('html/register.html');
 		echo($errorstr);

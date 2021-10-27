@@ -2,7 +2,7 @@
 // TODO: Make the errors from $errorstr look better when displayed
 session_start();
 ob_start();
-require('mysql.inc.php'); // require the MYSQL info
+require('header.php');
 if(!isset($_POST['btnRegister'])){ //If the register button has not been pressed
 	require('html/register.html');
 }

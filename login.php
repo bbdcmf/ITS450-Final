@@ -1,7 +1,7 @@
 <?php
 session_start();
 ob_start(); // need this for redirecting the user to a different page
-require('mysql.inc.php'); // require the MYSQL info
+require('header.php');
 if(isset($_POST['btnSubmit'])){ // When the user presses "Log in"
 	$nameValues = $_POST;
 
@@ -37,6 +37,7 @@ if(isset($_POST['btnSubmit'])){ // When the user presses "Log in"
 }
 else{ // if the login button hasnt been pressed, just show the user the login page
 	require('html/login.html');
+	echo("Don't have an account? Register <a href=" . BASE_URL . "register.php>Here</a>");
 }
 ?>
 

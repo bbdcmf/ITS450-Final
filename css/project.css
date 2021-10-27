@@ -1,4 +1,4 @@
-.loginBody {
+body {
 	margin:0px;
 	background:skyblue;
 }
@@ -33,4 +33,28 @@
 	-webkit-transform:translate(-50%,-50%);
 	transform:translate(-50%,-50%);
 	text-align:center;
+}
+
+.headerNav {
+  padding: 8px 0px;
+  background-color: blue;
+  color: black;
+  border: 1px solid black;
+}
+
+.headerNav a {
+  display: inline;
+  color: black;
+  text-align: center;
+  padding: 8px;
+  text-decoration: none;
+  border-right: 1px solid black;
+}
+
+.headerNav a:last-child {
+  !border-right: 0px;
+}
+
+.headerNav a:hover {
+  color: red;
 }

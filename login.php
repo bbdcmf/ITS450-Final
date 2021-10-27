@@ -24,6 +24,8 @@ if(isset($_POST['btnSubmit'])){ // When the user presses "Log in"
 	if($user['id'] == ''){ // if the user cannot be found in the database
 		echo("Incorrect info, try again");
 		require('html/login.html');
+		echo("Don't have an account? Register <a href=" . BASE_URL . "register.php>here</a>
+		</div></div></body></html>");
 	}
 	else { // if we found the user's data in the database
 		$_SESSION['id'] = $user['id'];
@@ -37,7 +39,8 @@ if(isset($_POST['btnSubmit'])){ // When the user presses "Log in"
 }
 else{ // if the login button hasnt been pressed, just show the user the login page
 	require('html/login.html');
-	echo("Don't have an account? Register <a href=" . BASE_URL . "register.php>Here</a>");
+	echo("Don't have an account? Register <a href=" . BASE_URL . "register.php>here</a>
+	</div></div></body></html>");
 }
 ?>
 

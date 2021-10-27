@@ -3,12 +3,15 @@ body {
 	background:skyblue;
 }
 
-.loginDiv {
+.container {
 	position:absolute;
 	left:50%;
 	top:50%;
 	-webkit-transform:translate(-50%,-50%);
 	transform:translate(-50%,-50%);
+}
+
+.loginDiv {
 	border:3px solid blue;
 	padding-left:40px;
 	padding-right:40px;
@@ -19,11 +22,6 @@ body {
 .loginBtn {
 	width:80px;
 	margin-top:10px;
-}
-
-.loggedInBody {
-	margin:0px;
-	background:skyblue;
 }
 
 .loggedInDiv {
@@ -56,5 +54,5 @@ body {
 }
 
 .headerNav a:hover {
-  color: red;
+  color: white;
 }

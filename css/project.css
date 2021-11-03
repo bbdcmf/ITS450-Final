@@ -72,11 +72,31 @@ body {
 
 .shopDiv {
   border: 1px solid black;
+  border-right: none;
   width: 80%;
-  height: 70%;
+  height: auto;
   position:absolute;
   left:50%;
   top:20%;
   -webkit-transform:translate(-50%,0);
   transform:translate(-50%,0);
+}
+
+.productTable {
+  margin: 0 auto;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.productTable tr {
+  border-bottom: 1px solid black;
+}
+
+.productTable tr:last-child {
+  border-bottom: none;
+}
+
+.productTable td {
+  height: 50px;
+  border-right: 1px solid black;
 }

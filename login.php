@@ -1,5 +1,4 @@
 <?php
-session_start();
 ob_start(); // need this for redirecting the user to a different page
 require('header.php');
 if(isset($_POST['btnSubmit'])){ // When the user presses "Log in"
@@ -32,7 +31,7 @@ if(isset($_POST['btnSubmit'])){ // When the user presses "Log in"
 		require('html/loggedIn.html'); // get the hello screen
 	    echo("<h3>Hello ".$username."!</h3>");
 	    $location = BASE_URL . "index.php";
-	    header( "Refresh:3; url=$location", true, 303); // redirect the user to index.php
+	    header( "Refresh:1; url=$location", true, 303); // redirect the user to index.php
 		exit();
 	    echo("</h1></div></body></html>");
 	}

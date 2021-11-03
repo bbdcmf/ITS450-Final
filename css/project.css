@@ -1,6 +1,7 @@
 body {
 	margin:0px;
 	background:skyblue;
+	overflow-x: hidden;
 }
 
 .container {
@@ -38,10 +39,10 @@ body {
   background-color: blue;
   color: black;
   border: 1px solid black;
+  width: 100%;
 }
 
 .headerNav a {
-  display: inline;
   color: black;
   text-align: center;
   padding: 8px;
@@ -50,9 +51,32 @@ body {
 }
 
 .headerNav a:last-child {
-  !border-right: 0px;
+  border-right: 0px;
 }
 
 .headerNav a:hover {
   color: white;
+}
+
+.searchForm {
+  display:inline;
+}
+
+.searchBar {
+  margin-left: 30px;
+}
+
+.indexWelcome {
+  text-align: center;
+}
+
+.shopDiv {
+  border: 1px solid black;
+  width: 80%;
+  height: 70%;
+  position:absolute;
+  left:50%;
+  top:20%;
+  -webkit-transform:translate(-50%,0);
+  transform:translate(-50%,0);
 }

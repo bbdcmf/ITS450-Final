@@ -10,12 +10,12 @@
 	echo("<a href=" . BASE_URL . "index.php>Home</a>");
 	if(isset($_SESSION['id'])){
 		echo("
-		<a href=" . BASE_URL . "logout.php>Log Out</a>
-		</nav><br /><br />");
+		<a href=" . BASE_URL . "logout.php>Log Out</a>");
 	}
 	else{
 		echo("
-		<a href=" . BASE_URL . "login.php>Login</a>
-		</nav><br /><br />");
+		<a href=" . BASE_URL . "login.php>Login</a>");
 	}
+	echo("<form method='POST' action='index.php' class='searchForm'><input type='text' placeholder='Search...' class='searchBar' name='searchBar'/></form>
+		  </nav><br /><br />");
 ?>

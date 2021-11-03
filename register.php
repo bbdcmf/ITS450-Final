@@ -7,23 +7,23 @@ if(!isset($_POST['btnRegister'])){ //If the register button has not been pressed
 }
 else{
 	$good = FALSE; // need this for ensuring there are no errors
-	$errorstr = '';// need this as well for reason above
+	$errorstr = 'Error';// need this as well for reason above
 	$nameValues = $_POST;
 	foreach($nameValues as $name => $value) {
 		if($name != 'btnSubmit'){
 	   		if($value == '') {
-				$errorstr = $errorstr . $name . ' missing field, ';
+				$errorstr = $errorstr . ', ' . $name . ' missing field';
 	   		}
 
 	   		// set the value to variable
 	   		switch($name){
-	   			case 'userin':
+	   			case 'username':
 	   				$username = $value;
 	   				break;
-	 			case 'passin':
+	 			case 'password':
 	 				$password = $value;
 		 			break;
-	    		case 'passConfirm':
+	    		case 'confirmPassword':
 	    			$conpass = $value;
 	    			break;
 				default:
@@ -32,7 +32,7 @@ else{
 		}
 	}
 	if($password != $conpass) { // if the two passwords dont match
-		$errorstr = $errorstr . ' mismatch password, ';
+		$errorstr = $errorstr . ', mismatch password ';
 	}
 	// ensuring the username hasnt been taken already
 	$stmt = $db->prepare("SELECT * FROM users WHERE username=?");
@@ -41,12 +41,12 @@ else{
 	$result = $stmt->get_result();
 	$user = $result->fetch_assoc();
 	if($user != '') {
-		$errorstr = $errorstr . ' user with name or email';
+		$errorstr = $errorstr . ', user with name already exists';
 	}
 	// hash password
 	$hashedPass = hash_pass($password);
 	// if there are no errors, insert the users info into the DB
-	if($errorstr == '') {
+	if($errorstr == 'Error') {
 		$good = TRUE;
 		$stmt = $db->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
 		$stmt->bind_param("ss", $username, $hashedPass);
@@ -73,7 +73,7 @@ else{
 	// if there are errors, show them
 	else {
 		require('html/register.html');
-		echo($errorstr);
+		echo("<div class='errorDiv'>$errorstr</div>");
 	}
 }
 ?>

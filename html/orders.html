@@ -2,5 +2,36 @@
 	<title>Orders</title>
 </head>
 <body>
+	<div class="split left">
+		<h3 style="text-align: center">Make an Order:</h3>
+		<div class="makeOrder">
+			<form method="POST" action="orders.php">
+				<table>
+					<tr>
+						<td>Name:</td>
+						<td><input type="text" name="product" /></td>
+					</tr>
+					<tr>
+						<td>Price:</td>
+						<td><input type="text" name="price" /></td>
+					</tr>
+					<tr>
+						<td>Description:</td>
+						<td><input type="text" name="description" /></td>
+					</tr>
+					<tr>
+						<td>Quantity:</td>
+						<td><input type="text" name="quantity" /></td>
+					</tr>
+				</table><br />
+				<input type="submit" name="makeOrderSubmit" value="Submit" style="margin-left: 40%;" />
+			</form>
+		</div>
+		
+	</div>
+	<div class="split right">
+		<h3 style="text-align: center">View past Orders:</h3>
+		
+	</div>
 </body>
 </html>

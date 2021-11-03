@@ -1,30 +1,22 @@
 <?php
 ob_start(); // need this for redirecting the user to a different page
 require('header.php');
-if(isset($_POST['btnSubmit'])){ // When the user presses "Log in"
-	$nameValues = $_POST;
-
-	foreach($nameValues as $name => $value) {
-        	if($name == 'userin'){
-        		$username = $value;
-        	}
-        	elseif($name == 'passin'){
-            	$password = $value;
-        	}
-	}
+if(isset($_POST['btnSubmit'], $_POST['username'], $_POST['password'])){ // When the user presses "Log in"
+	$username = $_POST['username'];
+	$password = $_POST['password'];
 	$hashedPass = hash_pass($password);
-
+	
 	$stmt = $db->prepare("SELECT * FROM users WHERE username=? AND password=?"); // lookup the user from the database
-	$stmt->bind_param("ss", $username, $password);
+	$stmt->bind_param("ss", $username, $hashedPass);
 	$stmt->execute();
 	$result = $stmt->get_result();
 	$user = $result->fetch_assoc();
 
-	if($user['id'] == ''){ // if the user cannot be found in the database
-		echo("Incorrect info, try again");
+	if(!isset($user['id'])){ // if the user cannot be found in the database
 		require('html/login.html');
 		echo("Don't have an account? Register <a href=" . BASE_URL . "register.php>here</a>
-		</div></div></body></html>");
+		</div></div>
+		<div class='errorDiv'>Incorrect info, try again</div></body></html>");
 	}
 	else { // if we found the user's data in the database
 		$_SESSION['id'] = $user['id'];

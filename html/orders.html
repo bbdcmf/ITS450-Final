@@ -3,35 +3,30 @@
 </head>
 <body>
 	<div class="split left">
-		<h3 style="text-align: center">Make an Order:</h3>
+		<h3 style="text-align: center">Sell a Product:</h3>
 		<div class="makeOrder">
-			<form method="POST" action="orders.php">
+			<form method="POST" action="orders.php" enctype="multipart/form-data">
 				<table>
 					<tr>
 						<td>Name:</td>
-						<td><input type="text" name="product" /></td>
+						<td><input type="text" name="name" minlength="1" /></td>
 					</tr>
 					<tr>
 						<td>Price:</td>
-						<td><input type="text" name="price" /></td>
+						<td><input type="number" name="price" min="0" step="0.01" /></td>
 					</tr>
 					<tr>
 						<td>Description:</td>
-						<td><input type="text" name="description" /></td>
+						<td><input type="text" name="description" minlength="1" /></td>
 					</tr>
 					<tr>
 						<td>Quantity:</td>
-						<td><input type="text" name="quantity" /></td>
+						<td><input type="number" name="quantity" min="1" /></td>
 					</tr>
+					<tr>
+						<td>Image:</td>
+						<td><input type='file' name='image' id='image' /></td>
 				</table><br />
 				<input type="submit" name="makeOrderSubmit" value="Submit" style="margin-left: 40%;" />
 			</form>
 		</div>
-		
-	</div>
-	<div class="split right">
-		<h3 style="text-align: center">View past Orders:</h3>
-		
-	</div>
-</body>
-</html>

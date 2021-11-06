@@ -1,7 +1,5 @@
 <?php
-// TODO:
-// Take the info from the database and send it to the 'View Past Orders' div.
-// Make a function for changing the size of images before uploading them, ensuring they're all the same size.
+// TODO: Take the info from the database and send it to the 'View Past Orders' div.
 require('header.php');
 require('html/orders.html');
 
@@ -25,7 +23,8 @@ if(isset($_POST['makeOrderSubmit'])){
   			else {
     			$errorstr = $errorstr . 'There was an error uploading your image, ';
   			}
-  		} else {
+  		}
+  		else {
     		$errorstr = $errorstr . 'File uploaded not an image, ';
   		}
   	}
@@ -38,6 +37,7 @@ if(isset($_POST['makeOrderSubmit'])){
 		}
 	}
 	
+	// If there are errors, print them
 	if($errorstr != 'Error: '){
 		$errorstr = rtrim($errorstr, ", ");
 		echo("<div class='orderMessage'>$errorstr</div>");
@@ -62,8 +62,9 @@ if(isset($_POST['makeOrderSubmit'])){
 
 echo("</div>
 	<div class='split right'>
-		<h3 style='text-align: center'>View past Orders:</h3>
-	</div>
+		<h3 style='text-align: center'>View past Orders:</h3>");
+// TODO: Show orders that the user has purchased in the past and if there are none, send a message saying so
+echo("</div>
 </body>
 </html>");
 ?>

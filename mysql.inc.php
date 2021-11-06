@@ -9,5 +9,5 @@
         return hash_hmac('sha256', $password, 'c#haR1891', true);
     }
     // the base url used in redirections, gonna have to change it to whatever you use to get to your site
-    define('BASE_URL', 'http://localhost:8080/');
+    define('BASE_URL', 'http://localhost:6060/');
 ?>

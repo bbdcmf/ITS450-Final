@@ -8,6 +8,14 @@
     function hash_pass($password) {
         return hash_hmac('sha256', $password, 'c#haR1891', true);
     }
+    
+    // sanitize user input
+    function sanitize_input($data){
+    	$data = trim($data); // remove unnecesary whitespace
+        $data = htmlspecialchars($data); // convert special characters to HTML, helps prevent XSS
+    	return $data;
+    }
+    
     // the base url used in redirections, gonna have to change it to whatever you use to get to your site
     define('BASE_URL', 'http://localhost:6060/');
 ?>

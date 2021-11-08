@@ -156,10 +156,11 @@ body {
 }
 
 .shopItem {
-  position: absolute;
-  top: 50%;
-  left: 20%;
-  transform: translate(-10%, -50%);
+  height:100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .shoptd img {

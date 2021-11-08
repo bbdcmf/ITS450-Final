@@ -45,11 +45,11 @@ if(isset($_POST['makeOrderSubmit'])){
 	else{
 	
 		// Enter the data into the database
-		$name = $_POST['name'];
-		$price = $_POST['price'];
-		$description = $_POST['description'];
-		$quantity = $_POST['quantity'];
-		$imgPath = 'uploads/' . basename($_FILES['image']['name']);
+		$name = sanitize_input($_POST['name']);
+		$price = sanitize_input($_POST['price']);
+		$description = sanitize_input($_POST['description']);
+		$quantity = sanitize_input($_POST['quantity']);
+		$imgPath = sanitize_input('uploads/' . basename($_FILES['image']['name']));
 	
 		$stmt = $db->prepare("INSERT INTO shop (userID, item, price, description, quantity, imgPath) VALUES (?, ?, ?, ?, ?, ?)");
 		$stmt->bind_param("ssdsis", $_SESSION['id'], $name, $price, $description, $quantity, $imgPath);

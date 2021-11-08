@@ -1,4 +1,7 @@
 <?php
+// TODO: Add a purchase.php where the user can purchase a product
+//       When the user clicks 'Purcahse', it should take them to purchase.php as well as send purchase.php with the data
+//       about the product the user would like to purchase
 require('header.php');
 require('html/index.html');
 if(isset($_POST['searchBar'])){
@@ -9,14 +12,14 @@ if(isset($_POST['searchBar'])){
 	$stmt->execute();
 	$result = $stmt->get_result();
 	while($row = $result->fetch_assoc()){
-		echo("<tr><td class='shoptd'><img src='" . $row['imgPath'] . "' /><div class='shopItem'>" . "Product: " .  $row['item'] . " | Price: $" . $row['price'] .  " | Quantity: " . $row['quantity'] . " | Description: ". $row['description'] . "</div></td></tr>");
+		echo("<tr><td class='shoptd'><img src='" . $row['imgPath'] . "' /><div class='shopItem'>" . "Product: " .  $row['item'] . " | Price: $" . $row['price'] .  " | Quantity: " . $row['quantity'] . " | Description: ". $row['description'] . "</div><a href='" . BASE_URL . "purchase.php' style='margin-left:42%;'/>Purchase</td></tr>");
 	}
 	
 }
 else{
 	$stmt = $db->query("SELECT * FROM shop");
 	while($row = $stmt->fetch_assoc()){
-		echo("<tr><td class='shoptd'><img src='" . $row['imgPath'] . "' /><div class='shopItem'>" . "Product: " .  $row['item'] . " | Price: $" . $row['price'] .  " | Quantity: " . $row['quantity'] . " | Description: ". $row['description'] . "</div></td></tr>"); // TODO: Add an image that the user can click to add the item to their cart, and some way the user can view their cart and check out
+		echo("<tr><td class='shoptd'><img src='" . $row['imgPath'] . "' /><div class='shopItem'>" . "Product: " .  $row['item'] . " | Price: $" . $row['price'] .  " | Quantity: " . $row['quantity'] . " | Description: ". $row['description'] . "</div><a href='" . BASE_URL . "purchase.php' style='margin-left:42%;'/>Purchase</td></tr>");
 	}
 }
 

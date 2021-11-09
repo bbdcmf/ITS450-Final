@@ -18,7 +18,7 @@ if(isset($_POST['makeOrderSubmit'])){
   		$check = getimagesize($_FILES["image"]["tmp_name"]);
   		if($check !== false) {
     		//Upload the image to the uploads/ folder
-  			if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+  			if(move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
   			} 
   			else {
     			$errorstr = $errorstr . 'There was an error uploading your image, ';
@@ -62,7 +62,7 @@ if(isset($_POST['makeOrderSubmit'])){
 
 echo("</div>
 	<div class='split right'>
-		<h3 style='text-align: center'>View past Orders:</h3>");
+		<h3 style='text-align: center'>View Past Orders:</h3>");
 // TODO: Show orders that the user has purchased in the past and if there are none, send a message saying so
 echo("</div>
 </body>

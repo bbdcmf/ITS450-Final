@@ -78,6 +78,11 @@ body {
 
 .indexWelcome {
   text-align: center;
+   position:absolute;
+  left:50%;
+  top:5%;
+  -webkit-transform:translate(-50%,0);
+  transform:translate(-50%,0);
 }
 
 .shopDiv {

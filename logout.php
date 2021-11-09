@@ -5,7 +5,7 @@
 	require('html/loggedIn.html');
 	echo("<h3>Logout successful. You will now be redirected to the main page");
 	$location = BASE_URL . 'index.php';
-	header( "Refresh:2; url=$location", true, 303); // Redirect the user to index.php
+	header( "Refresh:1; url=$location", true, 303); // Redirect the user to index.php
 	exit();
 	echo("</h3></div></body></html>");
 ?>

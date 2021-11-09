@@ -1,7 +1,4 @@
 <?php
-// TODO: Add a purchase.php where the user can purchase a product
-//       When the user clicks 'Purcahse', it should take them to purchase.php as well as send purchase.php with the data
-//       about the product the user would like to purchase
 require('header.php');
 require('html/index.html');
 if(isset($_POST['searchBar'])){

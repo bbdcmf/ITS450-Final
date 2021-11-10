@@ -4,7 +4,7 @@
 require('header.php');
 require('html/orders.html');
 echo('				</table><br />
-				<input type="hidden" name="csrf-token" value="' . hash_hmac("sha256", "orders.php", $_SESSION["token"]); . '" />
+				<input type="hidden" name="csrf-token" value="' . hash_hmac("sha256", "orders.php", $_SESSION["token"]) . '" />
 				<input type="submit" name="makeOrderSubmit" value="Submit" style="margin-left: 40%;" />
 			</form>
 		</div>');

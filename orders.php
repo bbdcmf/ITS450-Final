@@ -4,7 +4,7 @@
 require('header.php');
 require('html/orders.html');
 echo('				</table><br />
-				<input type="hidden" name="csrf-token" value="' . $token . '" />
+				<input type="hidden" name="csrf-token" value="' . hash_hmac("sha256", "orders.php", $_SESSION["token"]); . '" />
 				<input type="submit" name="makeOrderSubmit" value="Submit" style="margin-left: 40%;" />
 			</form>
 		</div>');
@@ -12,10 +12,13 @@ echo('				</table><br />
 $target_dir = "uploads/";
 
 $errorstr = 'Error: ';
-if(isset($_POST['makeOrderSubmit'])){
-
-	// If the CSRF token is not the same as the one given
-	if($_POST['csrf-token'] != $_SESSION['token']){
+if(isset($_POST['makeOrderSubmit']) and !empty($_POST['csrf-token'])){
+	
+	// Hash the data 'orders.php' using SHA256 with the session token as the secret key
+	$token = hash_hmac('sha256', 'orders.php', $_SESSION['token']);
+	
+	// If the CSRF token on our end does not equal the CSRF token they provided
+	if (!hash_equals($token, $_POST['csrf-token'])) {
 		$errorstr = $errorstr . 'Cross site request forgery detected, ';
 	}
 	
@@ -51,8 +54,9 @@ if(isset($_POST['makeOrderSubmit'])){
 	// Loop through each of the name:value in POST
 	foreach($_POST as $name => $value){
 		if($name != 'makeOrderSubmit'){
+			// Send an error if any of the values are empty. 
 			if($value == ''){
-				$errorstr = $errorstr . $name . ' missing field, '; // Send an error if any of the values are empty. 
+				$errorstr = $errorstr . $name . ' missing field, ';
 			}
 		}
 	}
@@ -64,19 +68,21 @@ if(isset($_POST['makeOrderSubmit'])){
 	}
 	else{
 	
-		// Sanitize and enter the data into the database
+		// Get the user's userID from the database
+		$stmt = $db->prepare("SELECT id FROM users WHERE username=?");
+		$stmt->bind_param("s", $_SESSION['username']);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$user = $result->fetch_assoc();
+		
+		// Sanitize the user's input
 		$name = sanitize_input($_POST['name']);
 		$price = sanitize_input($_POST['price']);
 		$description = sanitize_input($_POST['description']);
 		$quantity = sanitize_input($_POST['quantity']);
 		$imgPath = sanitize_input('uploads/' . basename($_FILES['image']['name']));
 	
-		$stmt = $db->prepare("SELECT id FROM users WHERE username=?");
-		$stmt->bind_param("s", $_SESSION['username']);
-		$stmt->execute();
-		$result = $stmt->get_result();
-		$user = $result->fetch_assoc();
-	
+		// Enter the product into the shop table
 		$stmt = $db->prepare("INSERT INTO shop (userID, item, price, description, quantity, imgPath) VALUES (?, ?, ?, ?, ?, ?)");
 		$stmt->bind_param("ssdsis", $user['id'], $name, $price, $description, $quantity, $imgPath);
 		$stmt->execute();

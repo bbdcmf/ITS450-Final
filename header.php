@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (empty($_SESSION['token'])) {
+    $_SESSION['token'] = bin2hex(random_bytes(32));
+}
+$token = $_SESSION['token'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,7 +16,7 @@ session_start();
 <?php
 require('mysql.inc.php');
 echo("<a href=" . BASE_URL . "index.php>Home</a>");
-if(isset($_SESSION['id'])){
+if(isset($_SESSION['isLoggedInToLemonShop']) and $_SESSION['isLoggedInToLemonShop'] == true){
 	echo("
 	<a href=" . BASE_URL . "account.php>Account</a>
 	<a href=" . BASE_URL . "orders.php>Orders</a>

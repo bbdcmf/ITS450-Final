@@ -3,7 +3,7 @@
 
 ob_start(); // need this for redirecting the user to a different page
 require('header.php');
-if(isset($_SESSION['id'])){
+if(isset($_SESSION['isLoggedInToLemonShop']) and $_SESSION['isLoggedInToLemonShop'] == true){
 	$productID = $_GET['id']; // get the productID from the url
 	$stmt = $db->prepare("SELECT * FROM shop WHERE productID = ?"); // lookup the item from the DB
 	$stmt->bind_param("i", $productID);

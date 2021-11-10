@@ -4,6 +4,7 @@
     DEFINE('DB_HOST', '172.19.0.2'); // gonna have to change this IP to the IP of your MYSQL server
     DEFINE('DB_NAME', 'project');
     $db = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    
     // function for hasing the users password
     function hash_pass($password) {
         return hash_hmac('sha256', $password, 'c#haR1891', true);

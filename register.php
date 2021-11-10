@@ -60,7 +60,8 @@ else{
 		$result = $stmt->get_result();
 		$user = $result->fetch_assoc();
 		
-		$_SESSION['id'] = $user['id']; // Start the user's session
+		$_SESSION['isLoggedInToLemonShop'] = true; // start the user's session
+		$_SESSION['username'] = $username;
 		
 		require('html/loggedIn.html'); // Get the hello screen
 	    echo("<h3>Welcome ".$username."!</h3>");

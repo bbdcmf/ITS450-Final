@@ -24,9 +24,12 @@ if(isset($_POST['btnSubmit'], $_POST['username'], $_POST['password'])){
 	}
 	// if we found the user's data in the database
 	else {
-		$_SESSION['id'] = $user['id'];
+		$_SESSION['isLoggedInToLemonShop'] = true;
+		$_SESSION['username'] = $username;
+		
 		require('html/loggedIn.html'); // get the hello screen
-	    echo("<h3>Hello ".$username."!</h3>");
+	    echo("<h3>Hello ".$username . "!</h3>");
+	    
 	    // if the user wanted to buy something and was redirected to login before purchasing the product,
 	    // redirect them to the page to purchase the product they chose
 	    if(isset($_SESSION['chosenID'])){
@@ -34,6 +37,7 @@ if(isset($_POST['btnSubmit'], $_POST['username'], $_POST['password'])){
 	    	header( "Refresh:1; url=$location", true, 303); // redirect the user to the product they want to purchase
 	    	exit();
 	    }
+	    
 	    // if the user was just trying to login
 	    else{
 	    	$location = BASE_URL . "index.php";

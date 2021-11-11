@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Nov 06, 2021 at 02:20 AM
+-- Generation Time: Nov 11, 2021 at 07:18 AM
 -- Server version: 8.0.27
 -- PHP Version: 7.4.20
 
@@ -20,6 +20,19 @@ SET time_zone = "+00:00";
 --
 -- Database: `project`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `orderID` int NOT NULL,
+  `productID` int NOT NULL,
+  `vendorID` int NOT NULL,
+  `userID` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -42,7 +55,8 @@ CREATE TABLE `shop` (
 --
 
 INSERT INTO `shop` (`productID`, `userID`, `item`, `price`, `description`, `quantity`, `imgPath`) VALUES
-(1, 1, 'Lemon', 2.50, 'It\'s just a lemon', 1, 'uploads/lemon1.jpg');
+(1, 1, 'Lemon', 1.50, 'It\'s just a lemon', 1, 'uploads/lemon1.jpg'),
+(2, 2, 'Orange', 2.00, '\'Tis just an orange', 1, 'uploads/orange1.jpg');
 
 -- --------------------------------------------------------
 
@@ -57,8 +71,24 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`) VALUES
+(1, 'bbdcmf', 0xadf3d3b3b31e413d6270b182d195c98db8ece7fba9311f76d5d7837391c91d66),
+(2, 'testuser1', 0x898244f4fc6e414f972a4a523cfb5da837bae30f72ff352a764d2e6272d72cf2);
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`orderID`),
+  ADD KEY `fk_userid` (`userID`),
+  ADD KEY `fk_productid` (`productID`);
 
 --
 -- Indexes for table `shop`
@@ -79,25 +109,32 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `orderID` int NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `shop`
 --
 ALTER TABLE `shop`
-  MODIFY `productID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `productID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `shop`
+-- Constraints for table `orders`
 --
-ALTER TABLE `shop`
+ALTER TABLE `orders`
+  ADD CONSTRAINT `fk_productid` FOREIGN KEY (`productID`) REFERENCES `shop` (`productID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_userid` FOREIGN KEY (`userID`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 

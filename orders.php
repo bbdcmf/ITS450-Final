@@ -26,7 +26,6 @@ if(isset($_POST['makeOrderSubmit']) and !empty($_POST['csrf-token'])){
 	if($_FILES['image']['error']){
 		$errorstr = $errorstr . 'Please select an image, ';
 	}
-	
 	else {
 	
 		// Make sure the image is an actual image
@@ -65,6 +64,7 @@ if(isset($_POST['makeOrderSubmit']) and !empty($_POST['csrf-token'])){
 	if($errorstr != 'Error: '){
 		$errorstr = rtrim($errorstr, ", "); // Format $errorstr
 		echo("<div class='orderMessage'>$errorstr</div>");
+		unset($_POST); // clear $_POST
 	}
 	else{
 	
@@ -86,7 +86,7 @@ if(isset($_POST['makeOrderSubmit']) and !empty($_POST['csrf-token'])){
 		$stmt = $db->prepare("INSERT INTO shop (userID, item, price, description, quantity, imgPath) VALUES (?, ?, ?, ?, ?, ?)");
 		$stmt->bind_param("ssdsis", $user['id'], $name, $price, $description, $quantity, $imgPath);
 		$stmt->execute();
-	
+		unset($_POST); // clear $_POST
 		echo("<div class='orderMessage'>Your product has been entered into our system!</div>");
 	
 	}

@@ -65,6 +65,7 @@ else{
 		
 		require('html/loggedIn.html'); // Get the hello screen
 	    echo("<h3>Welcome ".$username."!</h3>");
+	    unset($_POST); // clear $_POST
 		// redirect to login
 		$location = BASE_URL . 'index.php';
 		header( "Refresh:3; url=$location", true, 303);
@@ -76,6 +77,7 @@ else{
 		require('html/register.html');
 		$errorstr = rtrim($errorstr, ", ");
 		echo("<div class='errorDiv'>$errorstr</div>");
+		unset($_POST); // clear $_POST
 	}
 }
 ?>

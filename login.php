@@ -18,6 +18,7 @@ if(isset($_POST['btnSubmit'], $_POST['username'], $_POST['password'])){
 	// if the user cannot be found in the database
 	if(!isset($user['id'])){
 		require('html/login.html');
+		unset($_POST); // clear $_POST
 		echo("Don't have an account? Register <a href=" . BASE_URL . "register.php>here</a>
 		</div></div>
 		<div class='errorDiv'>Incorrect info, try again</div></body></html>");
@@ -29,7 +30,7 @@ if(isset($_POST['btnSubmit'], $_POST['username'], $_POST['password'])){
 		
 		require('html/loggedIn.html'); // get the hello screen
 	    echo("<h3>Hello ".$username . "!</h3>");
-	    
+	    unset($_POST); // clear $_POST
 	    // if the user wanted to buy something and was redirected to login before purchasing the product,
 	    // redirect them to the page to purchase the product they chose
 	    if(isset($_SESSION['chosenID'])){

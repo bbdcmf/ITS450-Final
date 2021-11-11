@@ -10,8 +10,15 @@ echo('				</table><br />
 		</div>');
 		
 $target_dir = "uploads/";
-
 $errorstr = 'Error: ';
+// Get the user's userID from the database
+$stmt = $db->prepare("SELECT id FROM users WHERE username=?");
+$stmt->bind_param("s", $_SESSION['username']);
+$stmt->execute();
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
+$userID = $user['id'];
+
 if(isset($_POST['makeOrderSubmit']) and !empty($_POST['csrf-token'])){
 	
 	// Hash the data 'orders.php' using SHA256 with the session token as the secret key
@@ -67,14 +74,6 @@ if(isset($_POST['makeOrderSubmit']) and !empty($_POST['csrf-token'])){
 		unset($_POST); // clear $_POST
 	}
 	else{
-	
-		// Get the user's userID from the database
-		$stmt = $db->prepare("SELECT id FROM users WHERE username=?");
-		$stmt->bind_param("s", $_SESSION['username']);
-		$stmt->execute();
-		$result = $stmt->get_result();
-		$user = $result->fetch_assoc();
-		
 		// Sanitize the user's input
 		$name = sanitize_input($_POST['name']);
 		$price = sanitize_input($_POST['price']);
@@ -84,7 +83,7 @@ if(isset($_POST['makeOrderSubmit']) and !empty($_POST['csrf-token'])){
 	
 		// Enter the product into the shop table
 		$stmt = $db->prepare("INSERT INTO shop (userID, item, price, description, quantity, imgPath) VALUES (?, ?, ?, ?, ?, ?)");
-		$stmt->bind_param("ssdsis", $user['id'], $name, $price, $description, $quantity, $imgPath);
+		$stmt->bind_param("ssdsis", $userID, $name, $price, $description, $quantity, $imgPath);
 		$stmt->execute();
 		unset($_POST); // clear $_POST
 		echo("<div class='orderMessage'>Your product has been entered into our system!</div>");
@@ -95,6 +94,14 @@ if(isset($_POST['makeOrderSubmit']) and !empty($_POST['csrf-token'])){
 echo("</div>
 	<div class='split right'>
 		<h3 style='text-align: center'>View Past Orders:</h3>");
+		
+		$stmt = $db->prepare("SELECT * FROM orders WHERE userID = ? OR vendorID = ?");
+		$stmt->bind_param("ii", $userID, $userID);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		while($order = $result->fetch_assoc()){
+			echo('orderID = ' . $order['orderID'] . ' productID = ' . $order['productID'] . ' userID = ' . $order['userID'] . ' vendorID = ' . $order['vendorID']);
+		}
 // TODO: Show orders that the user has purchased in the past and if there are none, send a message saying so
 echo("</div>
 </body>

@@ -1,5 +1,7 @@
 <?php
+// Start the users session, for using the $_SESSION variable
 session_start();
+// If the user does not have a session token, generate one for them (used to prevent CSRF)
 if (empty($_SESSION['token'])) {
     $_SESSION['token'] = bin2hex(random_bytes(32));
 }
@@ -13,6 +15,7 @@ if (empty($_SESSION['token'])) {
 	
 	<nav class="headerNav">
 <?php
+// Create the header links shown at the top of each page
 require('mysql.inc.php');
 echo("<a href=" . BASE_URL . "index.php>Home</a>");
 if(isset($_SESSION['isLoggedInToLemonShop']) and $_SESSION['isLoggedInToLemonShop'] == true){
@@ -24,6 +27,7 @@ if(isset($_SESSION['isLoggedInToLemonShop']) and $_SESSION['isLoggedInToLemonSho
 else{
 	echo("<a href=" . BASE_URL . "login.php>Login</a>");
 }
+// Add the search bar
 echo("<form method='POST' action='index.php' class='searchForm'><input type='text' placeholder='Search...' class='searchBar' name='searchBar'/></form>
 		  </nav><br /><br />");
 ?>

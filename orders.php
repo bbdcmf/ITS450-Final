@@ -3,15 +3,16 @@
 
 require('header.php');
 require('html/orders.html');
-echo('				</table><br />
-				<input type="hidden" name="csrf-token" value="' . hash_hmac("sha256", "orders.php", $_SESSION["token"]) . '" />
+// Add the CSRF token by hashing the data 'orders.php' using SHA256 with the session token as the secret key
+echo('			<input type="hidden" name="csrf-token" value="' . hash_hmac("sha256", "orders.php", $_SESSION["token"]) . '" />
 				<input type="submit" name="makeOrderSubmit" value="Submit" style="margin-left: 40%;" />
 			</form>
 		</div>');
 		
-$target_dir = "uploads/";
-$errorstr = 'Error: ';
-// Get the user's userID from the database
+$target_dir = "uploads/"; // The folder where the images will be stored in the webserver
+$errorstr = 'Error: '; // Init. the error string in case there are errors
+
+// Get the user's userID from the database (used for SQL below)
 $stmt = $db->prepare("SELECT id FROM users WHERE username=?");
 $stmt->bind_param("s", $_SESSION['username']);
 $stmt->execute();
@@ -19,20 +20,19 @@ $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 $userID = $user['id'];
 
+// If the user has pressed the 'Submit' button
 if(isset($_POST['makeOrderSubmit']) and !empty($_POST['csrf-token'])){
-	
 	// Hash the data 'orders.php' using SHA256 with the session token as the secret key
 	$token = hash_hmac('sha256', 'orders.php', $_SESSION['token']);
-	
 	// If the CSRF token on our end does not equal the CSRF token they provided
 	if (!hash_equals($token, $_POST['csrf-token'])) {
-		$errorstr = $errorstr . 'Cross site request forgery detected, ';
+		$errorstr = $errorstr . 'Cross-site request forgery detected, ';
 	}
-	
 	// If no image was selected
 	if($_FILES['image']['error']){
 		$errorstr = $errorstr . 'Please select an image, ';
 	}
+	// If an image was selected
 	else {
 	
 		// Make sure the image is an actual image
@@ -40,8 +40,9 @@ if(isset($_POST['makeOrderSubmit']) and !empty($_POST['csrf-token'])){
 		$uploadOk = 1;
 		$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
   		$check = getimagesize($_FILES["image"]["tmp_name"]);
-  		if($check !== false) {
   		
+  		// If the image seems good:
+  		if($check !== false) {
     		// Upload the image to the uploads/ folder
   			if(move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
   			} 
@@ -50,7 +51,6 @@ if(isset($_POST['makeOrderSubmit']) and !empty($_POST['csrf-token'])){
     			$errorstr = $errorstr . 'There was an error uploading your image, ';
   			}
   		}
-  		
   		// If the file is not a known image file
   		else {
     		$errorstr = $errorstr . 'File uploaded not an image, ';
@@ -60,7 +60,7 @@ if(isset($_POST['makeOrderSubmit']) and !empty($_POST['csrf-token'])){
 	// Loop through each of the name:value in POST
 	foreach($_POST as $name => $value){
 		if($name != 'makeOrderSubmit'){
-			// Send an error if any of the values are empty. 
+			// Add an error if any of the values are empty. 
 			if($value == ''){
 				$errorstr = $errorstr . $name . ' missing field, ';
 			}
@@ -95,6 +95,7 @@ echo("</div>
 	<div class='split right'>
 		<h3 style='text-align: center'>View Past Orders:</h3>");
 		
+		// Get all of the orders that the user bought or sold
 		$stmt = $db->prepare("SELECT * FROM orders WHERE userID = ? OR vendorID = ?");
 		$stmt->bind_param("ii", $userID, $userID);
 		$stmt->execute();
@@ -102,6 +103,7 @@ echo("</div>
 		while($order = $result->fetch_assoc()){
 			echo('orderID = ' . $order['orderID'] . ' productID = ' . $order['productID'] . ' userID = ' . $order['userID'] . ' vendorID = ' . $order['vendorID']);
 		}
+		
 // TODO: Show orders that the user has purchased in the past and if there are none, send a message saying so
 echo("</div>
 </body>

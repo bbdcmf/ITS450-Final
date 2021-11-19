@@ -1,6 +1,7 @@
 <?php
 require('header.php');
 require('html/index.html');
+// If the user has searched for an item, display the items that match the user's search:
 if(isset($_POST['searchBar'])){
 	$search = $_POST['searchBar'];
 	$search = '%' . $search . '%';
@@ -13,6 +14,7 @@ if(isset($_POST['searchBar'])){
 	}
 	
 }
+// If the user has not searched anything, show them everything:
 else{
 	$stmt = $db->query("SELECT * FROM shop");
 	while($row = $stmt->fetch_assoc()){
@@ -20,6 +22,7 @@ else{
 	}
 }
 $stmt->close();
+// Close the html:
 echo("		</table>
 		</div>
 	</body>

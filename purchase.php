@@ -8,9 +8,9 @@ require('html/purchase.html');
 if(isset($_SESSION['isLoggedInToLemonShop']) and $_SESSION['isLoggedInToLemonShop'] == true){
 	// Create the div where the product details are shown
 	echo("<div class='purchaseDiv'>");
-	// get the productID from the url
+	// Get the productID from the url
 	$productID = $_GET['id'];
-	// lookup the item from the DB
+	// Lookup the item from the DB
 	$stmt = $db->prepare("SELECT * FROM shop WHERE productID = ?");
 	$stmt->bind_param("i", $productID);
 	$stmt->execute();

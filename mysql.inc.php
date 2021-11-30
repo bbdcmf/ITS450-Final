@@ -12,11 +12,11 @@
     }
     
     // Function for sanitizing user input
-    function sanitize_input($data){
-    	$data = trim($data); // remove unnecesary whitespace
-        $data = htmlspecialchars($data); // convert special characters to HTML, helps prevent XSS
-    	return $data;
-    }
+    //function sanitize_input($data){
+    //	$data = trim($data); // remove unnecesary whitespace
+    //    $data = htmlspecialchars($data); // convert special characters to HTML, helps prevent XSS
+    //	return $data;
+    //}
     
     // The base url used in redirections
     define('BASE_URL', 'http://10.20.0.6/');

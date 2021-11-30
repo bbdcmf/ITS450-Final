@@ -1,20 +1,8 @@
 version: '3.8'
 services:
-    php-apache-environment:
-        container_name: php-apache
-        build:
-            context: /home/bbdcmf/php
-            dockerfile: Dockerfile
-        depends_on:
-            - db
-        volumes:
-            - /home/bbdcmf/php:/var/www/html/
-        ports:
-            - 6060:80
-            - 6161:8080
     db:
         container_name: db
-        image: mysql
+        image: mysql:latest
         restart: always
         environment:
             MYSQL_ROOT_PASSWORD: toor
@@ -23,12 +11,40 @@ services:
             MYSQL_PASSWORD: toor
         ports:
             - "9906:3306"
+        networks:
+            projectNetwork:
+                ipv4_address: 10.20.0.5
+    php-apache-environment:
+        container_name: php-apache
+        build:
+            context: /home/bbdcmf/php
+            dockerfile: Dockerfile
+        restart: always
+        depends_on:
+            - db
+        volumes:
+            - /home/bbdcmf/php:/var/www/html/
+        ports:
+            - 6060:80
+        networks:
+            projectNetwork:
+                ipv4_address: 10.20.0.6
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         ports:
             - '7070:80'
+        networks:
+            projectNetwork:
+                ipv4_address: 10.20.0.7
         restart: always
         environment:
             PMA_HOST: db
         depends_on:
             - db
+networks:
+  projectNetwork:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.20.0.0/16
+         gateway: 10.20.0.1

@@ -34,7 +34,7 @@ if(isset($_POST['btnSubmit'], $_POST['username'], $_POST['password'])){
 	    // if the user wanted to buy something and was redirected to login before purchasing the product,
 	    // redirect them to the page to purchase the product they chose
 	    if(isset($_SESSION['chosenID'])){
-	    	$location = BASE_URL . "purchase.php?id=" . $_SESSION['chosenID'];
+	    	$location = ENC_URL . "purchase.php?id=" . $_SESSION['chosenID'];
 	    	header( "Refresh:1; url=$location", true, 303); // redirect the user to the product they want to purchase
 	    	exit();
 	    }

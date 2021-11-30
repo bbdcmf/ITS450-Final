@@ -10,7 +10,7 @@ if(isset($_POST['searchBar'])){
 	$stmt->execute();
 	$result = $stmt->get_result();
 	while($row = $result->fetch_assoc()){
-		echo("<tr><td class='shoptd'><img src='" . $row['imgPath'] . "' /><div class='shopItem'>" . "Product: " .  $row['item'] . " | Price: $" . $row['price'] .  " | Quantity: " . $row['quantity'] . " | Description: ". $row['description'] . "</div><a href='http://localhost:6161/purchase.php?id=" . $row['productID'] . "' style='margin-left:40%;'/>Purchase</td></tr>");
+		echo("<tr><td class='shoptd'><img src='" . $row['imgPath'] . "' /><div class='shopItem'>" . "Product: " .  $row['item'] . " | Price: $" . $row['price'] .  " | Quantity: " . $row['quantity'] . " | Description: ". $row['description'] . "</div><a href='" . ENC_URL . "purchase.php?id=" . $row['productID'] . "' style='margin-left:40%;'/>Purchase</td></tr>");
 	}
 	
 }
@@ -18,7 +18,7 @@ if(isset($_POST['searchBar'])){
 else{
 	$stmt = $db->query("SELECT * FROM shop");
 	while($row = $stmt->fetch_assoc()){
-		echo("<tr><td class='shoptd'><img src='" . $row['imgPath'] . "' /><div class='shopItem'>" . "Product: " .  $row['item'] . " | Price: $" . $row['price'] .  " | Quantity: " . $row['quantity'] . " | Description: ". $row['description'] . "</div><a href='http://localhost:6161/purchase.php?id=" . $row['productID'] . "' style='margin-left:40%;'/>Purchase</td></tr>");
+		echo("<tr><td class='shoptd'><img src='" . $row['imgPath'] . "' /><div class='shopItem'>" . "Product: " .  $row['item'] . " | Price: $" . $row['price'] .  " | Quantity: " . $row['quantity'] . " | Description: ". $row['description'] . "</div><a href='" . ENC_URL . "purchase.php?id=" . $row['productID'] . "' style='margin-left:40%;'/>Purchase</td></tr>");
 	}
 }
 $stmt->close();

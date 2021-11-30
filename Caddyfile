@@ -1,3 +1,6 @@
-https://172.19.0.4:443 {
-	reverse_proxy http://172.19.0.4:8080
+{
+	http_port 8080
+}
+https://10.20.0.6:443 {
+	reverse_proxy http://10.20.0.6:80
 }

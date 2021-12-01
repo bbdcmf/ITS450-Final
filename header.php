@@ -20,7 +20,6 @@ require('mysql.inc.php');
 echo("<a href=" . BASE_URL . "index.php>Home</a>");
 if(isset($_SESSION['isLoggedInToLemonShop']) and $_SESSION['isLoggedInToLemonShop'] == true){
 	echo("
-	<a href=" . ENC_URL . "account.php>Account</a>
 	<a href=" . ENC_URL . "orders.php>Orders</a>
 	<a href=" . BASE_URL . "logout.php>Log Out</a>");
 }

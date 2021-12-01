@@ -22,9 +22,9 @@ else{
 	 			case 'password':
 	 				$password = $value;
 		 			break;
-	    		case 'confirmPassword':
-	    			$conpass = $value;
-	    			break;
+	    			case 'confirmPassword':
+	    				$conpass = $value;
+	    				break;
 				default:
 					break;
 			}

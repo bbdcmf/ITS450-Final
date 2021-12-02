@@ -51,15 +51,8 @@ else{
 		$stmt->bind_param("ss", $username, $hashedPass);
 		$stmt->execute();
 	}
-	// Get the user info from the DB and set the user's session
+	// Set the user's session
 	if($good) {
-		// Get the id of the user that we just inserted
-		$stmt = $db->prepare("SELECT * FROM users WHERE username=?");
-		$stmt->bind_param("s", $username);
-		$stmt->execute();
-		$result = $stmt->get_result();
-		$user = $result->fetch_assoc();
-		
 		$_SESSION['isLoggedInToLemonShop'] = true; // start the user's session
 		$_SESSION['username'] = $username;
 		

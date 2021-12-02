@@ -6,6 +6,7 @@ require('html/purchase.html');
 
 // If the user is logged in
 if(isset($_SESSION['isLoggedInToLemonShop']) and $_SESSION['isLoggedInToLemonShop'] == true){
+	$_SESSION['chosenID'] = NULL;
 	// Create the div where the product details are shown
 	echo("<div class='purchaseDiv'>");
 	// Get the productID from the url
@@ -20,45 +21,57 @@ if(isset($_SESSION['isLoggedInToLemonShop']) and $_SESSION['isLoggedInToLemonSho
 	$productName = $row['item'];
 	$price = $row['price'];
 	$desc = $row['description'];
-	
- 	// Get the name of the vendor
-	$stmt = $db->prepare("SELECT u.* FROM users u WHERE EXISTS (SELECT NULL FROM shop s WHERE u.id = s.userID AND s.productID = ?)");
-	$stmt->bind_param("i", $productID);
-	$stmt->execute();
-	$result = $stmt->get_result();
-	$row = $result->fetch_assoc();
-	$vendor = $row['username'];
-	
+	$quantity = $row['quantity'];
+	// Print all of the details
+	echo("<img src='" . $row['imgPath'] . "' style='height: 70px; width: 70px; float: left;'/><table style='padding-left: 20px;'><tr><td>Product:</td><td>" . $productName . "</td></tr><tr><td>Description:</td><td>" . $desc . "</td></tr><tr><td>Price:</td><td>$" . $price . "</td></tr><tr><td rowspan='2' style='display: flex; position: absolute; left: 119px;'>");
 	// Paypal scripts
-	echo('<script src="https://www.paypal.com/sdk/js?client-id=AQUDW2NzyMB0edExztPC5xJOvSd0N7MLT4uFP3QLEL2eXpH--Yzuis0BNhNBJ1bqd5pv-zIl8QvzFwuE"></script>
+	echo('<script src="https://www.paypal.com/sdk/js?client-id=AQUDW2NzyMB0edExztPC5xJOvSd0N7MLT4uFP3QLEL2eXpH--Yzuis0BNhNBJ1bqd5pv-zIl8QvzFwuE&currency=USD&disable-funding=credit,card"></script>
 
   	<div id="paypal-button-container"></div>
 
   	<script>
   		paypal.Buttons({
+    createOrder: function(data, actions) {
+        return actions.order.create({
+            purchase_units: [{
+                amount: {
+                    currency_code: "USD",
+                    value: "' . $price + 5 . '",
+                    breakdown: {
+                        item_total: {
+                            currency_code: "USD",
+                            value: "' . $price . '"
+                        },
+                        shipping: {
+                            currency_code: "USD",
+                            value: "5.00"
+                        },
+                    }
+                },
+                items: [{
+                    name: "' . $productName . '",
+                    description: "' . $desc . '",
+                    unit_amount: {
+                         currency_code: "USD",
+                         value: "' . $price . '"
+                    },
+                    quantity: "' . $quantity . '"
+                }
+                
+                ]
+            }]
+        })
+    },
+    onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+            // When the transaction succeeds:
+			window.location.replace("' . ENC_URL . 'orderComplete.php?productid=' . $productID . '");
+        })
+    }
+}).render("#paypal-button-container")
 
-    			createOrder: function(data, actions) {
-      				// This function sets up the details of the transaction, including the amount and line item details.
-      				return actions.order.create({
-        				purchase_units: [{
-          					amount: {
-            						value: "' . $price . '"
-          					}
-        				}]
-      				});
-    			},
-    			onApprove: function(data, actions) {
-      				// This function captures the funds from the transaction.
-      				return actions.order.capture().then(function(details) {
-        				// When transaction sucessed, redirect the user to the orderComplete page
-        				window.location.replace("' . ENC_URL . 'orderComplete.php");
-      				});
-    			}
-  		}).render("#paypal-button-container");
   		//This function displays Smart Payment Buttons on your web page.
-	</script>');
-	// Print all of the details
-	echo("Product: " . $productName . " Price: " . $price . " Description: " . $desc . " Vendor: " . $vendor);
+	</script></td></tr></table>');
 	echo('</div></body></html>');
 }
 // If the user is not logged in, send them to login.php

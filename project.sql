@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Nov 30, 2021 at 03:21 AM
+-- Generation Time: Dec 02, 2021 at 05:15 AM
 -- Server version: 8.0.27
 -- PHP Version: 7.4.20
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `project`
 --
-CREATE DATABASE IF NOT EXISTS `project` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE `project`;
 
 -- --------------------------------------------------------
 
@@ -32,9 +30,16 @@ USE `project`;
 CREATE TABLE `orders` (
   `orderID` int NOT NULL,
   `productID` int NOT NULL,
-  `vendorID` int NOT NULL,
   `userID` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`orderID`, `productID`, `userID`) VALUES
+(1, 1, 1),
+(2, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -58,7 +63,7 @@ CREATE TABLE `shop` (
 
 INSERT INTO `shop` (`productID`, `userID`, `item`, `price`, `description`, `quantity`, `imgPath`) VALUES
 (1, 1, 'Lemon', 1.50, 'It\'s just a lemon', 1, 'uploads/lemon1.jpg'),
-(2, 2, 'Orange', 2.00, '\'Tis just an orange', 1, 'uploads/orange1.jpg');
+(2, 1, 'Orange', 2.00, '\'Tis just an orange', 1, 'uploads/orange1.jpg');
 
 -- --------------------------------------------------------
 
@@ -77,8 +82,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`) VALUES
-(1, 'bbdcmf', 0xadf3d3b3b31e413d6270b182d195c98db8ece7fba9311f76d5d7837391c91d66),
-(2, 'testuser1', 0x898244f4fc6e414f972a4a523cfb5da837bae30f72ff352a764d2e6272d72cf2);
+(1, 'vendor', 0xadf3d3b3b31e413d6270b182d195c98db8ece7fba9311f76d5d7837391c91d66),
+(3, 'testuser', 0xadf3d3b3b31e413d6270b182d195c98db8ece7fba9311f76d5d7837391c91d66);
 
 --
 -- Indexes for dumped tables
@@ -114,7 +119,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `orderID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `orderID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `shop`
@@ -126,7 +131,7 @@ ALTER TABLE `shop`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

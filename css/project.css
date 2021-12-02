@@ -124,8 +124,8 @@ body {
   overflow-x: hidden;
   padding-top: 20px;
   z-index: 1;
-
 }
+
 .left {
   margin-left: 5%;
   left: 0;
@@ -138,6 +138,23 @@ body {
   right: 0;
   border: 1px solid black;
   background-color: lightblue;
+  overflow-y: auto;
+}
+
+.basicOrders {
+  height: 50%;
+  width: 40%;
+  overflow-x: hidden;
+  padding-top: 20px;
+  z-index: 1;
+  position:absolute;
+  left:50%;
+  top:20%;
+  -webkit-transform:translate(-50%,0);
+  transform:translate(-50%,0);
+  border: 1px solid black;
+  background-color: lightblue;
+  overflow-y: auto;
 }
 
 .makeOrder {
@@ -176,6 +193,38 @@ body {
   border-right: 1px solid black;
 }
 
+.pastOrderstd img {
+  display: inline-block;
+  height: 80px;
+  width: 80px;
+  float: left;
+  border-right: 1px solid black;
+}
+
+.pastOrdersItem {
+  height: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pastOrders {
+  margin: 0 auto;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pastOrders tr {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+
+.pastOrders td {
+  height: 50px;
+}
+
 a:link {
   color: black;
   font-weight: bold;
@@ -183,9 +232,9 @@ a:link {
 }
 
 .purchaseDiv {
-  height: 200px;
+  height: 170px;
+  width: 400px;
   border: 1px solid black;
-  text-align: center;
   padding-left: 20px;
   padding-right: 20px;
   display: flex;

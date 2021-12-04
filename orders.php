@@ -10,7 +10,7 @@ if(isset($_SESSION['username'], $_SESSION['isLoggedInToLemonShop']) and $_SESSIO
 		</div>');
 	// If the admin has pressed the 'Submit' button
 	if(isset($_POST['makeOrderSubmit'], $_FILES['image']) and !empty($_POST['csrf-token'])){
-	
+		$errorstr = 'Error: ';
 		// Hash the data 'orders.php' using SHA256 with the session token as the secret key
 		$token = hash_hmac('sha256', 'orders.php', $_SESSION['token']);
 		// If the CSRF token on our end does not equal the CSRF token they provided

@@ -25,7 +25,7 @@ if(isset($_SESSION['isLoggedInToLemonShop']) and $_SESSION['isLoggedInToLemonSho
 	// Print all of the details
 	echo("<img src='" . $row['imgPath'] . "' style='height: 70px; width: 70px; float: left;'/><table style='padding-left: 20px;'><tr><td>Product:</td><td>" . $productName . "</td></tr><tr><td>Description:</td><td>" . $desc . "</td></tr><tr><td>Price:</td><td>$" . $price . "</td></tr><tr><td rowspan='2' style='display: flex; position: absolute; left: 119px;'>");
 	// Paypal scripts
-	echo('<script src="https://www.paypal.com/sdk/js?client-id=AQUDW2NzyMB0edExztPC5xJOvSd0N7MLT4uFP3QLEL2eXpH--Yzuis0BNhNBJ1bqd5pv-zIl8QvzFwuE&currency=USD&disable-funding=credit,card"></script> // Client ID is the ID of the sandbox
+	echo('<script src="https://www.paypal.com/sdk/js?client-id=AQUDW2NzyMB0edExztPC5xJOvSd0N7MLT4uFP3QLEL2eXpH--Yzuis0BNhNBJ1bqd5pv-zIl8QvzFwuE&currency=USD&disable-funding=credit,card"></script>
 
   	<div id="paypal-button-container"></div>
   	<script>

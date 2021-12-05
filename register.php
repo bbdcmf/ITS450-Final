@@ -17,7 +17,7 @@ else{
 	   		// Set the value to variable
 	   		switch($name){
 	   			case 'username':
-	   				$username = $value;
+	   				$username = sanitize_input($value);
 	   				break;
 	 			case 'password':
 	 				$password = $value;

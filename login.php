@@ -4,7 +4,7 @@ require('header.php');
 
 // When the user presses "Log in"
 if(isset($_POST['btnSubmit'], $_POST['username'], $_POST['password'])){
-	$username = $_POST['username'];
+	$username = sanitize_input($_POST['username']);
 	$password = $_POST['password'];
 	$hashedPass = hash_pass($password);
 	

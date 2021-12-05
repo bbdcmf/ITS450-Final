@@ -1,0 +1,6 @@
+RewriteEngine on
+RewriteRule ^Home index.php
+RewriteRule ^Orders orders.php
+RewriteRule ^Logout logout.php
+RewriteRule ^Login login.php
+RewriteRule ^Register register.php

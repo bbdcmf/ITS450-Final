@@ -41,7 +41,7 @@ if(isset($_POST['btnSubmit'], $_POST['username'], $_POST['password'])){
 	    
 	    // if the user was just trying to login
 	    else{
-	    	$location = BASE_URL . "index.php";
+	    	$location = BASE_URL . "Home";
 	    	header( "Refresh:1; url=$location", true, 303); // redirect the user to index.php
 			exit();
 	    	echo("</h1></div></body></html>");
@@ -51,7 +51,7 @@ if(isset($_POST['btnSubmit'], $_POST['username'], $_POST['password'])){
 // if the login button hasnt been pressed, just show the user the login page
 else{
 	require('html/login.html');
-	echo("Don't have an account? Register <a href=" . BASE_URL . "register.php>here</a>
+	echo("Don't have an account? Register <a href=" . BASE_URL . "Register>here</a>
 	</div></div></body></html>");
 }
 ?>

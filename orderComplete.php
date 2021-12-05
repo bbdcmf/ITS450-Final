@@ -14,7 +14,7 @@ if(isset($_GET['productid'])){
 	$stmt->bind_param("ii", $productID, $userID);
 	$stmt->execute();
 	echo("<div class='loggedInDiv'><h3>Order complete!<h3></div>");
-	$location = ENC_URL . "orders.php";
+	$location = ENC_URL . "Orders";
 	header( "Refresh:1; url=$location", true, 303); // redirect the user to the orders page
 	exit();
 }

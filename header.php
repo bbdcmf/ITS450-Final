@@ -17,16 +17,16 @@ if (empty($_SESSION['token'])) {
 <?php
 // Create the header links shown at the top of each page
 require('mysql.inc.php');
-echo("<a href=" . BASE_URL . "index.php>Home</a>");
+echo("<a href=" . BASE_URL . "Home>Home</a>");
 if(isset($_SESSION['isLoggedInToLemonShop']) and $_SESSION['isLoggedInToLemonShop'] == true){
 	echo("
-	<a href=" . ENC_URL . "orders.php>Orders</a>
-	<a href=" . BASE_URL . "logout.php>Log Out</a>");
+	<a href=" . ENC_URL . "Orders>Orders</a>
+	<a href=" . BASE_URL . "Logout>Log Out</a>");
 }
 else{
-	echo("<a href=" . ENC_URL . "login.php>Login</a>");
+	echo("<a href=" . ENC_URL . "Login>Login</a>");
 }
 // Add the search bar
-echo("<form method='POST' action='index.php' class='searchForm'><input type='text' placeholder='Search...' class='searchBar' name='searchBar'/></form>
+echo("<form method='POST' action='Home' class='searchForm'><input type='text' placeholder='Search...' class='searchBar' name='searchBar'/></form>
 		  </nav><br /><br />");
 ?>

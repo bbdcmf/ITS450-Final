@@ -3,6 +3,13 @@ require('header.php');
 // If the admin is checking the orders page
 if(isset($_SESSION['username'], $_SESSION['isLoggedInToLemonShop']) and $_SESSION['username'] == 'vendor' and $_SESSION['isLoggedInToLemonShop'] == true){
 	require('html/ordersAdmin.html');
+	// Get the user's userID from the database (used for SQL below)
+	$stmt = $db->prepare("SELECT id FROM users WHERE username=?");
+	$stmt->bind_param("s", $_SESSION['username']);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	$user = $result->fetch_assoc();
+	$userID = $user['id'];
 	// Add the CSRF token by hashing the data 'orders.php' using SHA256 with the session token as the secret key
 	echo('			<input type="hidden" name="csrf-token" value="' . hash_hmac("sha256", "orders.php", $_SESSION["token"]) . '" />
 				<input type="submit" name="makeOrderSubmit" value="Submit" style="margin-left: 40%;" />
@@ -70,6 +77,7 @@ if(isset($_SESSION['username'], $_SESSION['isLoggedInToLemonShop']) and $_SESSIO
 		else{
 			if($uploadOk == 1){
 				move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
+				chmod($target_file, 0777);
 				// Sanitize the user's input
 				$name = sanitize_input($_POST['name']);
 				$price = sanitize_input($_POST['price']);
@@ -119,14 +127,6 @@ echo("</div>
 // If a regular user is checking their orders
 else{
 	require('html/orders.html');
-	// Get the user's userID from the database (used for SQL below)
-	$stmt = $db->prepare("SELECT id FROM users WHERE username=?");
-	$stmt->bind_param("s", $_SESSION['username']);
-	$stmt->execute();
-	$result = $stmt->get_result();
-	$user = $result->fetch_assoc();
-	$userID = $user['id'];
-
 	$stmt = $db->prepare("SELECT * FROM orders WHERE userID = ?");
 	$stmt->bind_param("i", $userID);
 	$stmt->execute();

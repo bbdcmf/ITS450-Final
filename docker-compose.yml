@@ -17,13 +17,13 @@ services:
     php-apache-environment:
         container_name: php-apache
         build:
-            context: /home/bbdcmf/php
+            context: /home/seed/php
             dockerfile: Dockerfile
         restart: always
         depends_on:
             - db
         volumes:
-            - /home/bbdcmf/php:/var/www/html/
+            - /home/seed/php:/var/www/html/
         ports:
             - 6060:80
         networks:

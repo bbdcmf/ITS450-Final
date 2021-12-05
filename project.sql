@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Dec 02, 2021 at 04:38 PM
+-- Generation Time: Dec 05, 2021 at 08:15 AM
 -- Server version: 8.0.27
 -- PHP Version: 7.4.20
 
@@ -65,7 +65,8 @@ CREATE TABLE `shop` (
 
 INSERT INTO `shop` (`productID`, `userID`, `item`, `price`, `description`, `quantity`, `imgPath`) VALUES
 (1, 1, 'Lemon', 1.50, 'It\'s just a lemon', 1, 'uploads/lemon1.jpg'),
-(2, 1, 'Orange', 2.00, '\'Tis just an orange', 1, 'uploads/orange1.jpg');
+(2, 1, 'Orange', 2.00, '\'Tis just an orange', 1, 'uploads/orange1.jpg'),
+(6, 1, 'Strawberry', 2.00, 'red fruit', 1, 'uploads/strawberry1.jpg');
 
 -- --------------------------------------------------------
 
@@ -85,7 +86,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`) VALUES
 (1, 'vendor', 0xadf3d3b3b31e413d6270b182d195c98db8ece7fba9311f76d5d7837391c91d66),
-(3, 'testuser', 0xadf3d3b3b31e413d6270b182d195c98db8ece7fba9311f76d5d7837391c91d66);
+(3, 'testuser', 0xadf3d3b3b31e413d6270b182d195c98db8ece7fba9311f76d5d7837391c91d66),
+(4, 'user1', 0xadf3d3b3b31e413d6270b182d195c98db8ece7fba9311f76d5d7837391c91d66);
 
 --
 -- Indexes for dumped tables
@@ -127,13 +129,13 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `shop`
 --
 ALTER TABLE `shop`
-  MODIFY `productID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `productID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

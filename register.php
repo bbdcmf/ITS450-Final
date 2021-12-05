@@ -60,7 +60,7 @@ else{
 	    echo("<h3>Welcome ".$username."!</h3>");
 	    unset($_POST); // clear $_POST
 		// redirect to login
-		$location = BASE_URL . 'index.php';
+		$location = BASE_URL . 'Home';
 		header( "Refresh:3; url=$location", true, 303);
 		exit();
 			
